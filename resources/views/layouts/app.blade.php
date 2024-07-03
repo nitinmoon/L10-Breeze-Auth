@@ -26,6 +26,8 @@
         <link href="{{ asset('backend/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
          <!-- Custom Css-->
         <link href="{{ asset('backend/assets/custom-css/custom.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Toaster css -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
         @yield('css')
     </head>
@@ -70,6 +72,25 @@
         <!-- <script src="{{ asset('backend/assets/js/pages/dashboard.init.js') }}"></script> -->
         <!-- App js -->
         <script src="{{ asset('backend/assets/js/app.js') }}"></script>
+        <!-- Toaster script -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
         @yield('script')
+
+        <!-- Common toaster messages -->
+        <script>
+            toastr.options = {
+                "closeButton": true
+            };
+            @if(Session::has('success'))
+                 toastr.success(" {{ Session::get('success') }} ");
+            @endif
+            @if(Session::has('error'))
+                toastr.danger(" {{ Session::get('success') }} ");
+            @endif
+            @if(Session::has('warning'))
+                toastr.warning(" {{ Session::get('warning') }} ");
+            @endif
+        </script>
     </body>
 </html>
