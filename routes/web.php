@@ -32,6 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
         Route::patch('/profile-image-update', [ProfileController::class, 'profileImageUpdate'])->name('profile.update.image');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/change-password-form', [ProfileController::class, 'changePasswordForm'])->name('admin.change.password');
+        Route::put('/update-password', [ProfileController::class, 'updatePassword'])->name('admin.password.update');
     });
        
 });

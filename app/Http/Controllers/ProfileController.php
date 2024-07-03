@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
+use App\Rules\MatchOldPassword;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\File;
+use Hash;
 
 class ProfileController extends Controller
 {
@@ -81,16 +83,33 @@ class ProfileController extends Controller
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
-
         $user = $request->user();
-
         Auth::logout();
-
         $user->delete();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return Redirect::to('/');
+    }
+
+    
+    /**
+     * Channe password form.
+     */
+    public function changePasswordForm()
+    {
+        return view('profile.change-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate(
+            [
+            'current_password' => ['required', new MatchOldPassword],
+            'password' => ['required'],
+            'confirm_password' => ['required','same:password'],
+            ]
+        );
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->password)]);
+        return Redirect::route('admin.logout')->with('status', 'Password changed successfully!');
     }
 }

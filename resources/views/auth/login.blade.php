@@ -23,9 +23,6 @@ Login
                 @error('rate_error')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-                @error('rate_error')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
                 @if (session('status'))
                     <div class="alert alert-success text-center">
                         {{ session('status') }}
