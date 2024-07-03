@@ -1,0 +1,2 @@
+-export DEPLOYPATH=/home1/technofi/public_html/L10-Breeze-Auth/
+ - /bin/cp * $DEPLOYPATH
