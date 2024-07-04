@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+ 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use App\Services\MailConfigurationService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Configure mail settings globally
+        MailConfigurationService::configureMail();
     }
 }
