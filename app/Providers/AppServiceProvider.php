@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Configure mail settings globally
-        MailConfigurationService::configureMail();
+       // MailConfigurationService::configureMail();
     }
 }
