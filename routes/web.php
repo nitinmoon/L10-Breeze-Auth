@@ -27,7 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('admin')->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::post('/admin-logout', [DashboardController::class, 'logout'])->name('admin.logout');
+        Route::get('/logout', [DashboardController::class, 'logout'])->name('admin.logout');
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
         Route::patch('/profile-image-update', [ProfileController::class, 'profileImageUpdate'])->name('profile.update.image');

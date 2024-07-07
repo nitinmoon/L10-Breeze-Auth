@@ -4,27 +4,27 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class LogCommand extends Command
+class TestCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:log-command';
+    protected $signature = 'app:test-command';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Its just testing purpose';
+    protected $description = 'Command description';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        \Log::info("Every minute cron log testiing");
+        \Log::info("Every minute cron test testiing");
     }
 }

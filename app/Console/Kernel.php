@@ -8,7 +8,8 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        Commands\LogCommand::class
+        Commands\LogCommand::class,
+        Commands\TestCommand::class
     ];
 
     /**
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
     {
         //$schedule->command('inspire')->hourly();
         $schedule->command('app:log-command')->everyMinute();
+        $schedule->command('app:test-command')->everyMinute();
     }
 
     /**
