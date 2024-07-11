@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\File;
 use Hash;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
 
 class ProfileController extends Controller
 {
@@ -49,24 +52,42 @@ class ProfileController extends Controller
 
         if ($request->hasFile('profile_photo')) {
             $destinationPath = config('constants.PROFILE_PATH');
+            $destinationPathResize = config('constants.PROFILE_PATH_RESIZE');
           
             $oldImage = auth()->user()->profile_photo;
 
-            // Delete the old image if it exists
+            #Get the file from the request
+            $file = $request->file('profile_photo');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            #Save original image#############################################
+            #Check if the folder is not exists then create it
+            if (!File::exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            #Delete the old image if it exists
             if ($oldImage && File::exists($destinationPath.$oldImage)) {
                 File::delete($destinationPath.$oldImage);
             }
 
-            // Get the file from the request
-            $file = $request->file('profile_photo');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-
-            if (!File::exists($destinationPath)) {
-                mkdir($destinationPath, 0777, true);
-            }
-
-            // Move the file to the public/uploads/images directory
+            #Move original size file to the path
             $file->move($destinationPath, $filename);
+
+            #Save resize image#############################################
+            #Check if the folder is not exists then create it
+             if (!File::exists($destinationPathResize)) {
+                mkdir($destinationPathResize, 0777, true);
+            }
+            #Delete the old resize image if it exists
+            if ($oldImage && File::exists($destinationPathResize.$oldImage)) {
+                File::delete($destinationPathResize.$oldImage);
+            }
+            $fileResize = $request->file('profile_photo');
+            
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($destinationPath.$filename);
+            $image = $image->resize(100,100);
+            $image->save($destinationPathResize.$filename);
  
             User::where('id', auth()->user()->id)->update(['profile_photo' => $filename]);
 

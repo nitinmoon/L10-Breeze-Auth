@@ -19,7 +19,7 @@ Login
                         </a>
                     </div>
                 </div>
-                <h4 class="text-muted text-center font-size-18"><b>Login</b></h4>
+                <h4 class="text-muted text-center font-size-18"><b>{{ __('auth.login') }}</b></h4>
                 @error('rate_error')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror

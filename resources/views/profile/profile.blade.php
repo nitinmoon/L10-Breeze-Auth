@@ -41,7 +41,7 @@ Profile
                                 <input id="file" type="file" name="profile_photo"
                                     accept="image/jpg, image/jpeg, image/png" id="profile_photo"
                                     onchange="loadFile(event)" />
-                                <img src="{{ !empty($userDetails->profile_photo) ? 'data: image/jpeg;base64,' . \base64_encode(\file_get_contents(config('constants.PROFILE_PATH') . '/' . $userDetails->profile_photo)) : asset('backend/assets/images/default_profile.jpg') }}"
+                                <img src="{{ ( !empty($userDetails->profile_photo) && imageExists("$userDetails->profile_photo") ) ? 'data: image/jpeg;base64,' . \base64_encode(\file_get_contents(config('constants.PROFILE_PATH') . '/' . $userDetails->profile_photo)) : asset('backend/assets/images/default_profile.jpg') }}"
                                     alt="your image" id="output" width="200" />
                             </div>
                             <a class="profileEditBtn"><i class="bi bi-pencil-square"></i></a>
@@ -155,7 +155,7 @@ Profile
     }
     
     $("#close").click(function () {
-        $('#output').attr('src', "{{ !empty($userDetails->profile_photo) ? 'data: image/jpeg;base64,' . \base64_encode(\file_get_contents(config('constants.PROFILE_PATH') . '/' . $userDetails->profile_photo)) : asset('backend/assets/images/default_profile.jpg') }}");
+        $('#output').attr('src', "{{ ( !empty($userDetails->profile_photo) && imageExists($userDetails->profile_photo) ) ? 'data: image/jpeg;base64,' . \base64_encode(\file_get_contents(config('constants.PROFILE_PATH') . '/' . $userDetails->profile_photo)) : asset('backend/assets/images/default_profile.jpg') }}");
         $("#select_img").removeClass('d-none');
         $("#upload_img").addClass('d-none');
         $("#close").addClass('d-none');
