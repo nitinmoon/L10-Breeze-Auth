@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         //$schedule->command('inspire')->hourly();
         $schedule->command('app:log-command')->everyMinute();
         $schedule->command('app:test-command')->everyMinute();
+        $schedule->command('queue:work --queue=default --sleep=3 --tries=3 --timeout=90')->everyMinute();
     }
 
     /**
