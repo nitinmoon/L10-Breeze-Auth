@@ -16,6 +16,12 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('product.productImportJob') }}" class="waves-effect">
+                    <i class="ri-dashboard-line"></i> 
+                    <span>Product Import Bulk Job</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- Sidebar -->

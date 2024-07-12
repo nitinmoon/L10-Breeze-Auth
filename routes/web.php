@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
         Route::get('/change-password-form', [ProfileController::class, 'changePasswordForm'])->name('admin.change.password');
         Route::put('/update-password', [ProfileController::class, 'updatePassword'])->name('admin.password.update');
+
+
+        Route::get('/product-import-job', [ProductController::class, 'index'])->name('product.productImportJob');
+        Route::post('/product-store-job', [ProductController::class, 'storeBulk'])->name('product.storeBulk');
+        Route::get('/send-product-job-queue', [ProductController::class, 'sendProductJobQueue'])->name('product.sendProductJobQueue');
     });
        
 });
