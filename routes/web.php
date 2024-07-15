@@ -54,10 +54,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
         Route::get('/qrcode', [QrCodeController::class, 'generate'])->name('qrcode');
-        Route::get('/qrcode/user/details', [QrCodeController::class, 'userdetails'])->name('qrcode.user.details');
+       
     });
        
 });
+
+#Used it form without login to see user details after scan the QR code
+Route::get('/qrcode/user/details', [QrCodeController::class, 'userdetails'])->name('qrcode.user.details');
 
 #Laravel Breeze
 require __DIR__.'/auth.php';
