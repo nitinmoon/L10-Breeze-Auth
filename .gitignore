@@ -19,4 +19,4 @@ yarn-error.log
 /.vscode
 /public/backend/uploads/profile-images
 /public/backend/uploads/profile-images-resize
-.composer.lock
+composer.lock

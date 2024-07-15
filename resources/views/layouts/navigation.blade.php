@@ -22,6 +22,18 @@
                     <span>Product Import Bulk Job</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('phonepe.form') }}" class="waves-effect">
+                    <i class="ri-dashboard-line"></i> 
+                    <span>PhonePe Integration</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('qrcode') }}" class="waves-effect">
+                    <i class="ri-dashboard-line"></i> 
+                    <span>Qrcode</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- Sidebar -->

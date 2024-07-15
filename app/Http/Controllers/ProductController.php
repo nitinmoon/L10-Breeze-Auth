@@ -6,6 +6,7 @@ use App\Jobs\ProductEmailJob;
 use App\Mail\ProductJobEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 use App\Jobs\ProductCSVDataJob;
 use Illuminate\Support\Facades\Bus;
@@ -19,7 +20,6 @@ class ProductController extends Controller
 
     public function storeBulk(Request $request)
     {
-       
         $request->validate([
             'csv_file' => 'required|mimes:csv'
         ]);
@@ -27,12 +27,8 @@ class ProductController extends Controller
         if ($request->has('csv_file')) {
            
             $csv = file($request->csv_file);
-            
             $chunks = array_chunk($csv, 5);
-            
-
             $header = [];
-
             $batch = Bus::batch([])->dispatch();
 
             foreach ($chunks as $key => $value) {

@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PhonePeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,13 +24,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::prefix('admin')->group(function() {
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::prefix('admin')->group(function() {
+    
+
+        #Dashboard & Profile
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/logout', [DashboardController::class, 'logout'])->name('admin.logout');
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,12 +39,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/change-password-form', [ProfileController::class, 'changePasswordForm'])->name('admin.change.password');
         Route::put('/update-password', [ProfileController::class, 'updatePassword'])->name('admin.password.update');
 
-
+        #Queue-Job
         Route::get('/product-import-job', [ProductController::class, 'index'])->name('product.productImportJob');
         Route::post('/product-store-job', [ProductController::class, 'storeBulk'])->name('product.storeBulk');
         Route::get('/send-product-job-queue', [ProductController::class, 'sendProductJobQueue'])->name('product.sendProductJobQueue');
+
+
+        #Phonepe
+        Route::get('/phonepe/form', [PhonePeController::class, 'index'])->name('phonepe.form');
+        Route::post('/phonepe/initiate', [PhonePeController::class, 'initiatePayment'])->name('phonepe.initiate');
+        Route::post('/phonepe/callback', [PhonePeController::class, 'handleCallback'])->name('phonepe.callback');
+        Route::get('/phonepe/refund/{merchantTransactionId}', [PhonePeController::class, 'phonePeRefund'])->name('phonepe.refund');
+        Route::get('/phonepe/callback/refund', [PhonePeController::class, 'handleRefundCallback'])->name('phonepe.callback.refund');
+
+
+        Route::get('/qrcode', [QrCodeController::class, 'generate'])->name('qrcode');
+        Route::get('/qrcode/user/details', [QrCodeController::class, 'userdetails'])->name('qrcode.user.details');
     });
        
 });
 
+#Laravel Breeze
 require __DIR__.'/auth.php';

@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        '/admin/phonepe/callback', // Adjust this to match your callback URL route
     ];
 }
