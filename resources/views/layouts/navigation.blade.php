@@ -17,6 +17,12 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('chatify') }}" class="waves-effect">
+                    <i class="ri-chat-3-line"></i> 
+                    <span>Chat</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('product.productImportJob') }}" class="waves-effect">
                     <i class="ri-dashboard-line"></i> 
                     <span>Product Import Bulk Job</span>
@@ -34,6 +40,12 @@
                     <span>Qrcode</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('google.drive.form') }}" class="waves-effect">
+                    <i class="ri-dashboard-line"></i> 
+                    <span>Google Drive Upload</span>
+                </a>
+            </li> 
         </ul>
     </div>
     <!-- Sidebar -->

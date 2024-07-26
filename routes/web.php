@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GoogleDriveController;
 use App\Http\Controllers\PhonePeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -52,8 +53,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/phonepe/refund/{merchantTransactionId}', [PhonePeController::class, 'phonePeRefund'])->name('phonepe.refund');
         Route::get('/phonepe/callback/refund', [PhonePeController::class, 'handleRefundCallback'])->name('phonepe.callback.refund');
 
-
+        #QR Code
         Route::get('/qrcode', [QrCodeController::class, 'generate'])->name('qrcode');
+
+
+        #Google Drive
+        Route::get('/google/drive/form', [GoogleDriveController::class, 'index'])->name('google.drive.form');
+        Route::post('/google/drive/upload', [GoogleDriveController::class, 'upload'])->name('google.drive.upload');
        
     });
        
